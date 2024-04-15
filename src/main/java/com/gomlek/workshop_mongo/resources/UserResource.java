@@ -1,5 +1,6 @@
 package com.gomlek.workshop_mongo.resources;
 
+import com.gomlek.workshop_mongo.domain.Post;
 import com.gomlek.workshop_mongo.domain.User;
 import com.gomlek.workshop_mongo.dto.UserDTO;
 import com.gomlek.workshop_mongo.services.UserService;
@@ -57,4 +58,11 @@ public class UserResource {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User  obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
+    }
+
 }
